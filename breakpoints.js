@@ -8,15 +8,21 @@ $(document).ready(function() {
     var iframeCount = $('iframe').length; // number of iframes in index.html
     var screenWidth = window.screen.width; // user's device screen width
     
-    for (var i = 0; i < iframeCount; i++) {
+    for (var i = 0; i < iframeCount - 1; i++) {
         // compute the horizontal pixel range for the current iframe
-        var minBreakPoint = screenWidth * i / iframeCount + 1;
-        var maxBreakPoint = screenWidth * (i + 1) / iframeCount;
+        var minBreakpoint = screenWidth * i / iframeCount + 1;
+        var maxBreakpoint = screenWidth * (i + 1) / iframeCount;
         
         // insert the @media query into the style element
         document.querySelector('style').textContent +=
-            "@media screen and (min-width: " + minBreakPoint + "px) and " +
-            "(max-width: " + maxBreakPoint + "px) { iframe:nth-child(" +
+            "@media screen and (min-width: " + minBreakpoint + "px) and " +
+            "(max-width: " + maxBreakpoint + "px) { iframe:nth-child(" +
             (i + 1) + ") { display: block; } }";
     }
+    
+    // insert @media query for final iframe without a max-width
+    var finalBreakpoint = screenWidth * (iframeCount - 1) / iframeCount + 1;
+    document.querySelector('style').textContent +=
+        "@media screen and (min-width: " + finalBreakpoint +
+        "px) { iframe:nth-child(" + iframeCount + ") { display: block; } }";
 });
