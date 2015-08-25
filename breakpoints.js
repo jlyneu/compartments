@@ -5,6 +5,19 @@ screen width to generate breakpoints that provides equal-width partitions
 of the screen for each iframe.
 */
 $(document).ready(function() {
+
+    function shuffle(o){
+        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+
+    // generate iframes based on list of websites that support iframes
+    shuffle(sites);
+    var $body = $('body');
+    for (var i = 0; i < 10; i++) {
+        $body.append('<iframe src="' + sites[i] + '"></iframe>');
+    }
+
     var iframeCount = $('iframe').length; // number of iframes in index.html
     var screenWidth = window.screen.width; // user's device screen width
     
