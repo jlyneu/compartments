@@ -14,7 +14,7 @@ $(document).ready(function() {
     // generate iframes based on list of websites that support iframes
     shuffle(sites);
     var $body = $('body');
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 15; i++) {
         $body.append('<iframe src="' + sites[i] + '"></iframe>');
     }
 
