@@ -21,6 +21,34 @@ iframe {
     padding-top: 100px;
 }
 
+#more-compartments-bar {
+    display: none;
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    height: 40px;
+    line-height: 40px; /* <-- this is what you must define */
+    vertical-align: middle;
+    background-color:  #1762a1;
+    font-size: 24px;
+}
+
+#more-compartments-bar:hover {
+    cursor: pointer;
+    color: #E8E8E8;
+}
+
+@media screen and (max-width: 480px) {
+    #more-compartments-bar {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #more-compartments-bar {
+        font-size: 14px;
+    }
+}
 
 #welcome-text {
     display: none;

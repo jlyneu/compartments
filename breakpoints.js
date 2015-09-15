@@ -6,18 +6,33 @@ of the screen for each iframe.
 */
 $(document).ready(function() {
 
+    var currentIframeCount = 6;
+    var disableMoreCompartments = false;
+
+    // display loading screen, fade away, then display more compartments bar
     var loadAnimation = function() {
         setTimeout(function() {
             $('#welcome-text').fadeIn(500, function() {
                 setTimeout(function() {
-                    $('#loading-screen').fadeOut(100);
-                }, 2000);
+                    $('#loading-screen').fadeOut(500, function() {
+                        setTimeout(function() {
+                            displayMoreCompartmentsBar();
+                        }, 2000);
+                    });
+                }, 4000);
             });
-        }, 2500);
+        }, 4500);
     
     };
+    
+    // remove all iframes and related media queries from the page
+    var clearAll = function() {
+        $('iframe').remove();
+        document.querySelector('style').textContent = "";
+    };
 
-    var displayIframes = function() {
+    // clear all current iframes and media queries then add given number of iframes to page
+    var displayIframes = function(iframeCount) {
         function shuffle(o){
             for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
@@ -26,11 +41,14 @@ $(document).ready(function() {
         // generate iframes based on list of websites that support iframes
         shuffle(sites);
         var $iframeContainer = $('#iframe-container');
-        for (var i = 0; i < 10; i++) {
+        
+        // clear iframes and related media queries
+        clearAll();
+        
+        for (var i = 0; i < iframeCount; i++) {
             $iframeContainer.append('<iframe src="' + sites[i] + '"></iframe>');
         }
 
-        var iframeCount = $('iframe').length; // number of iframes in index.html
         var screenWidth = window.screen.width; // user's device screen width
 
         for (var i = 0; i < iframeCount - 1; i++) {
@@ -52,8 +70,38 @@ $(document).ready(function() {
             "px) { iframe:nth-child(" + iframeCount + ") { display: block; } }";
     };
     
+    // have more compartments bar slide down from top
+    var displayMoreCompartmentsBar = function() {
+        $('#more-compartments-bar').slideDown(1000, function() {
+            $('iframe').css('height', '90vh');
+        });
+    };
+    
+    // increase number of compartments by given number and generate new random compartments
+    var addMoreCompartments = function(numToAdd) {
+        currentIframeCount += numToAdd;
+        displayIframes(currentIframeCount);
+    };
+    
+    
+    
     
     // kick it all off
     loadAnimation();
-    displayIframes();
+    displayIframes(currentIframeCount);
+    $('#more-compartments-bar').click(function() {
+        if (currentIframeCount < sites.length && !disableMoreCompartments) {
+            addMoreCompartments(2);
+            disableMoreCompartments = true;
+            $(this).text('Here you go...');
+            setTimeout(function() {
+                if (currentIframeCount >= sites.length) {
+                    $('#more-compartments-bar').text("I have enough compartments...");
+                } else {
+                    $('#more-compartments-bar').text("I don't have enough compartments...");
+                    disableMoreCompartments = false;
+                }
+            }, 2000);
+        }
+    });
 });
