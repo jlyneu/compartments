@@ -33,9 +33,13 @@ iframe {
     font-size: 24px;
 }
 
-#more-compartments-bar:hover {
+.enabled-bar {
+
+}
+
+.enabled-bar:hover {
     cursor: pointer;
-    color: #E8E8E8;
+    color: #E8E8E8 !important;
 }
 
 @media screen and (max-width: 480px) {

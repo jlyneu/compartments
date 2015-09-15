@@ -91,15 +91,18 @@ $(document).ready(function() {
     displayIframes(currentIframeCount);
     $('#more-compartments-bar').click(function() {
         if (currentIframeCount < sites.length && !disableMoreCompartments) {
+            var $this = $(this);
             addMoreCompartments(2);
             disableMoreCompartments = true;
-            $(this).text('Here you go...');
+            $this.removeClass('enabled-bar');
+            $this.text('Here you go...');
             setTimeout(function() {
                 if (currentIframeCount >= sites.length) {
-                    $('#more-compartments-bar').text("I have enough compartments...");
+                    $this.text("I have enough compartments...");
                 } else {
-                    $('#more-compartments-bar').text("I don't have enough compartments...");
+                    $this.text("I don't have enough compartments...");
                     disableMoreCompartments = false;
+                    $this.addClass('enabled-bar');
                 }
             }, 2000);
         }
