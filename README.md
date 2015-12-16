@@ -1,2 +1,2 @@
 # compartments
-Let's abuse *advanced and intelligent* responsive iframes
+An increasingly responsive website: http://jlyneu.github.io/compartments
